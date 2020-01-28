@@ -44,16 +44,17 @@ let game = {
 
     drawAll() {
         this.background.draw();
-        this.horse.draw(this.framesCounter);
+        this.horse.draw(this.framesCounter); 
+
     },
 
     moveAll() {
-        this.horse.move();
+        this.horse.move(this.framesCounter);
     },
 
     reset() {
         this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png");
-        this.horse = new Horse (this.ctx, this.horseWidth, this.horseHeight, this.keys);
+        this.horse = new Horse (this.ctx, 900, 1200, this.width, this.height, this.keys);
         
     },
 

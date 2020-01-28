@@ -1,113 +1,98 @@
 class Horse {
-    constructor(ctx){
-        this.ctx = ctx;
+  constructor(ctx, width, height, gameWidth, gameHeight, keys) {
+    this.ctx = ctx;
 
+    this.image = new Image();
+    this.image.src =
+      "./imagenes/Horse_paint_brown_blacksaddled_smallsaddle.png";
+    this.image.onload = () => {
+      this.width = width;
+      this.height = height;
 
-        this.image = new Image ();
-        this.image.src = "./imagenes/Horse_paint_brown_blacksaddled_smallsaddle.png";
+      this.posX = 100;
+      // this.posX0 = this.posX;
+      this.posY = 100;
+      this.posY0 = this.posY;
 
-        this.horseWidth = 90;
-        this.horseHeight = 50;
+      this.framesX = 9;
+      this.framesY = 18;
+      this.framesIndexX = 0;
+      this.framesIndexY = 3;
 
-        this.posX = this.gameWidth - this.horseWidth + 45;
-        this.posX0 = this.posX;
-        this.posY = this.gameHeight - this.horseHeight + 25;
-        this.posY0 = this.posY;
+      this.keys = keys;
 
+      this.velX = 0.001;
+      this.velY = 0.001;
+    };
 
-        this.image.frames = ;
-        this.image.framesIndex = 0;
+    // this.setListeners();
+  }
 
-        this.keys = game.keys;
+  // draw(framesCounter) {
+  //     this.ctx.drawImage(
+  //       this.image,
+  //       this.framesIndexX * Math.floor(this.image.width / this.framesX),
+  //       this.framesIndexY,
+  //       Math.floor(this.image.width / this.framesX),
+  //       Math.floor(this.image.height / this.framesY),
+  //       this.posX,
+  //       this.posY,
+  //       this.width,
+  //       this.height
+  //     )
 
-        this.velX = 1;
-        this.velY = 1;
+  //     // this.animate(framesCounter);
 
+  // }
 
-        // this.setListeners();
+  draw() {
+    this.ctx.drawImage(
+      this.image,
+      this.posX,
+      this.posY,
+      this.width,
+      this.height
+    );
+  }
+
+  animate(framesCounter) {
+    if (framesCounter % 6 == 0) {
+      this.image.framesIndex++;
     }
-
-    draw(framesCounter) {
-        this.ctx.drawImage(
-          this.image,
-          this.image.framesIndex * Math.floor(this.image.width / this.image.frames),
-          0,
-          Math.floor(this.image.width / this.image.frames),
-          this.image.height,
-          this.posX,
-          this.posY,
-          this.width,
-          this.height
-        )
-
-        // this.animate(framesCounter);
-
-    }   
-
-    // draw() {
-    //     this.ctx.drawImage(this.image, this.posX, this.posY, this.horseWidth,this.horseHeight);
-
-    // }
-
-    animate(framesCounter) {
-        if (framesCounter % 9 == 0) {
-          this.image.framesIndex++;
-        }
-        if (this.image.framesIndex > this.image.frames - 1) {
-          this.image.framesIndex = 0;
-        }
+    if (this.image.framesIndex > this.image.framesX - 1) {
+      this.image.framesIndex = 0;
     }
+  }
 
+  move() {
+    let gravity = 0.4;
 
-    move() {
-        let gravity = 0.4;
-    
-        if (this.posY < this.posY0) {
-          this.posY += this.velY;
-          this.velY += gravity;
-        } else {
-          this.posY = this.posY0;
-          this.velY = 1;
-        }
-    
+    if (this.posY < this.posY0) {
+      this.posY += this.velY;
+      this.velY += gravity;
+    } else {
+      //   this.posY = this.posY0;
+      //   this.velY = 1;
     }
+  }
 
-    //   setListeners() {
-    //     document.addEventListener("keydown", e => {
-    //       switch (e.keyCode) {
-    //         case this.keys.TOP:
-    //           if (this.horse.posX. >= this.horse.posX0) {
-    //             this.posX -= 40;
-    //             this.velX += 8;
-    //             console.log("SALTANDO!");
-    //           }
-    //           break;
+  //   setListeners() {
+  //     document.addEventListener("keydown", e => {
+  //       switch (e.keyCode) {
+  //         case this.keys.JUMP:
+  //           if (this.posY <= this.posY0) {
+  //             this.posY -= 40;
+  //             this.velY += 8;
+  //             console.log("SALTANDO!");
+  //           }
+  //           break;
 
-
-    //           moveCar() {
-    //             window.onkeydown = e => {
-    //                 if (e.keyCode === 39) {
-    //                     if (this.car.CarX>300) {
-    //                          this.car.CarX=300;
-    //                     } else {
-    //                         this.car.CarX+=10;
-    //                     }
-    //                 }
-    //                 else if (e.keyCode === 37) {
-    //                     if (this.car.CarX<50) {
-    //                         this.car.CarX=50;
-    //                    } else {
-    //                        this.car.CarX-=10;
-    //                    }
-    //                 }
-    //             }
-
-            // case this.keys.LEFT:
-            //   console.log("TROTA A LA IZQUIERDA!");
-            //   this.shoot();
-    //         //   break;
-    //       }
-    //     });
-    // }
-
-};
+  //         case this.keys.LEFT:
+  //             if (this.posX < this.posX0){
+  //           console.log("TROTA A LA IZQUIERDA!");
+  //         }
+  //           break;
+  //       }
+  //     });
+  // }
+}
