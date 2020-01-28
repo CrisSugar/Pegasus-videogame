@@ -4,6 +4,14 @@ let game = {
     widht : undefined,
     height : undefined,
     FPS : 60,
+    framesCounter: 0,
+    keys: {
+        TOP: 38,
+        LEFT: 37,
+        RIGHT : 39,
+        BOTTON : 40,
+        JUMP : 32
+      },
 
     init() {
         this.canvas = document.getElementById("canvas");
@@ -21,6 +29,7 @@ let game = {
             this.framesCounter++;
             this.clear();
             this.drawAll();
+            this.moveAll();
         },1000/this.FPS);
 
     },
@@ -34,11 +43,17 @@ let game = {
     },
 
     drawAll() {
-        this.background.draw()
+        this.background.draw();
+        this.horse.draw(this.framesCounter);
+    },
+
+    moveAll() {
+        this.horse.move();
     },
 
     reset() {
         this.background = new Background(this.ctx, this.width, this.height, "./img/bg.png");
+        this.horse = new Horse (this.ctx, this.horseWidth, this.horseHeight, this.keys);
         
     },
 
