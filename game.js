@@ -7,6 +7,7 @@ let game = {
   framesCounter: 0,
   obstacles: [],
   score: Number,
+  velX: Number,
   keys: {
     TOP: 38,
     LEFT: 37,
@@ -32,6 +33,7 @@ let game = {
       this.clear();
       this.drawAll();
       this.moveAll();
+      this.velX++;
     //   this.gameOver();
       this.checkObstacles();
     }, 1000 / this.FPS);
@@ -51,7 +53,7 @@ let game = {
   },
 
   moveAll() {
-    this.horse.jump(this.framesCounter);
+    // this.horse.jump(this.framesCounter);
   },
 
   reset() {
@@ -125,9 +127,11 @@ let game = {
       switch (e.keyCode) {
         case this.keys.JUMP:
           if (this.horse.posY <= this.horse.posY0) {
-            this.horse.posY -= 40;
-            this.horse.velY += 8;
-            console.log("SALTANDO!");
+            // this.horse.posY -= 40;
+            // this.horse.velY += 8;
+            // this.horse.velX += 8;
+            // console.log("SALTANDO!");
+            this.horse.jump()
           }
           break;
 
