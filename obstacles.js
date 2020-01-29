@@ -1,16 +1,18 @@
 class Obstacles {
-    constructor(ctx, width, height){
+    constructor(ctx, width, height, posX, posY, type){
         this.ctx = ctx;
-        this.width = 30;
-        this.height = 25;
-        this.posX = 200;
+        this.width = width;
+        this.height = height;
+        this.type = type;
+        this.posX = posX;
         this.posX0 = this.posX;
-        this.posY = 200;
+        this.posY = posY;
         this.posY0 = this.posY;
     }
 
     draw() {
         this.ctx.fillStyle = "brown";
-        this.ctx.fillRect(this.posX, this.posY, this.width, this.height);
+        this.ctx.fillRect(this.posX, this.posY, this.width, this.height, this.type);
       }
 }
+

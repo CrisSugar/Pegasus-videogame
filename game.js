@@ -6,6 +6,7 @@ let game = {
   FPS: 60,
   framesCounter: 0,
   obstacles: [],
+  score: Number,
   keys: {
     TOP: 38,
     LEFT: 37,
@@ -13,7 +14,6 @@ let game = {
     BOTTON: 40,
     JUMP: 32
   },
-  
 
   init() {
     this.canvas = document.getElementById("canvas");
@@ -32,10 +32,8 @@ let game = {
       this.clear();
       this.drawAll();
       this.moveAll();
-    //   this.generateObstacles();
-      if (this.isCollision()) {
-        this.gameOver();
-      }
+    //   this.gameOver();
+      this.checkObstacles();
     }, 1000 / this.FPS);
   },
 
@@ -49,7 +47,7 @@ let game = {
   drawAll() {
     this.background.draw();
     this.horse.draw(this.framesCounter);
-    this.obstacles.draw();
+    this.obstacles.forEach(obstacles => obstacles.draw());
   },
 
   moveAll() {
@@ -71,44 +69,55 @@ let game = {
       this.height,
       this.framesCounter
     );
-    this.obstacles = new Obstacles(
+    this.obstacles = [
+      new Obstacles(
         this.ctx,
-        this.width,
-        this.height
-    )
-     
+        (this.width = 50),
+        (this.height = 20),
+        (this.posX = 250),
+        (this.posY = 200),
+        ("obsWin")
+      ),
+      new Obstacles(
+        this.ctx,
+        (this.width = 50),
+        (this.height = 50),
+        (this.posX = 450),
+        (this.posY = 180),
+        ("obsGOver")
+      )
+    ];
   },
 
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   },
 
-  generateObstacles() {
-        this.context.clearRect(0, 0, this.width, this.height)  
-        this.obstacles.forEach(o => {
-          o.x -= 1
-          context.fillRect(this.obstacles.posX, this.obstacles.posY, this.obstacles.width, this.obstacles.height);      
-        })
-    
-        this.animate(framesCounter);
-    },
-  
-  isCollision() {
-
-        if(this.horse.posX + this.horse.width >= this.obstacles.posX &&
-        this.horse.posY + this.horse.height >= this.obstacles.posY &&
-        this.horse.posX <= this.obstacles.posX + this.obstacles.width &&
-        this.horse.posY <= this.obstacles.posY + this.obstacles.height){
-            this.gameOver();
-            alert (`Game Over`)
-        }
-        
-      
-    
-},
+  isCollision(obstacle) {
+    if (
+      this.horse.posX + this.horse.width >= obstacle.posX &&
+      this.horse.posY + this.horse.height >= obstacle.posY &&
+      this.horse.posX <= obstacle.posX + obstacle.width &&
+      this.horse.posY <= obstacle.posY + obstacle.height
+    ) {
+      return true;
+    }
+  },
 
   gameOver() {
     clearInterval(this.interval);
+  },
+
+  checkObstacles() {
+      this.obstacles.forEach(obstacle => {
+        if (this.isCollision(obstacle)) {
+            if (obstacle.type === "obsWin" ) {
+                this.score+=5;
+              } else {
+                this.gameOver(); 
+              }
+        }
+      });
   },
 
   setListeners() {
@@ -163,4 +172,4 @@ let game = {
       }
     });
   }
-}
+};

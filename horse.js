@@ -55,7 +55,7 @@ class Horse {
 
   animate(framesCounter) {
 
-    if (framesCounter % 50 == 0) {
+    if (framesCounter % 10 == 0) {
       this.framesIndexX++;
     }
     if (this.framesIndexX > this.framesX - 1) {
