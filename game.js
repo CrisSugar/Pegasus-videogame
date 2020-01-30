@@ -6,8 +6,10 @@ let game = {
   FPS: 60,
   framesCounter: 0,
   obstacles: [],
-  score: Number,
+  score: 0,
+  timer: Number,
   velX: Number,
+  velY: Number,
   keys: {
     TOP: 38,
     LEFT: 37,
@@ -34,7 +36,8 @@ let game = {
       this.drawAll();
       this.moveAll();
       this.velX++;
-    //   this.gameOver();
+      this.velY++;
+      //   this.gameOver();
       this.checkObstacles();
     }, 1000 / this.FPS);
   },
@@ -50,6 +53,8 @@ let game = {
     this.background.draw();
     this.horse.draw(this.framesCounter);
     this.obstacles.forEach(obstacles => obstacles.draw());
+    // this.score.draw();
+    // this.timer.draw();
   },
 
   moveAll() {
@@ -78,7 +83,7 @@ let game = {
         (this.height = 20),
         (this.posX = 250),
         (this.posY = 200),
-        ("obsWin")
+        "obsWin"
       ),
       new Obstacles(
         this.ctx,
@@ -86,9 +91,23 @@ let game = {
         (this.height = 50),
         (this.posX = 450),
         (this.posY = 180),
-        ("obsGOver")
+        "obsGOver"
       )
     ];
+    // this.score = new Score (
+    //     this.ctx,
+    //     this.width = 200,
+    //     this.height = 100,
+    //     this.posX = 60,
+    //     this.posY = 40,
+    // )
+    // this.timer = new Timer (
+    //     this.ctx,
+    //     this.width = 200,
+    //     this.height = 100,
+    //     this.posX = 280,
+    //     this.posY = 40,
+    // )
   },
 
   clear() {
@@ -111,47 +130,49 @@ let game = {
   },
 
   checkObstacles() {
-      this.obstacles.forEach(obstacle => {
-        if (this.isCollision(obstacle)) {
-            if (obstacle.type === "obsWin" ) {
-                this.score+=5;
-              } else {
-                this.gameOver(); 
-              }
+    this.obstacles.forEach(obstacle => {
+      if (this.isCollision(obstacle)) {
+        if (obstacle.type === "obsWin") {
+          this.score += 5;
+        } else {
+          this.gameOver();
         }
-      });
+      }
+    });
   },
 
   setListeners() {
     document.addEventListener("keydown", e => {
       switch (e.keyCode) {
         case this.keys.JUMP:
-          if (this.horse.posY <= this.horse.posY0) {
-            // this.horse.posY -= 40;
-            // this.horse.velY += 8;
-            // this.horse.velX += 8;
-            // console.log("SALTANDO!");
-            this.horse.jump()
+          //   if (this.horse.posY <= this.horse.posY0) {
+          if (this.horse.orientation === "right") {
+            this.horse.jumpRight();
           }
+
+          if (this.horse.orientation === "left") {
+            this.horse.jumpLeft();
+          }
+
           break;
 
         case this.keys.RIGHT:
-          this.horse.moveX();
+          this.horse.moveRight();
           this.horse.framesIndexY = 3;
           break;
 
         case this.keys.LEFT:
-          this.horse.posX--;
+          this.horse.moveLeft();
           this.horse.framesIndexY = 7;
           break;
 
         case this.keys.BOTTON:
-          this.horse.moveY();
+          this.horse.moveDown();
           this.horse.framesIndexY = 13;
           break;
 
         case this.keys.TOP:
-          this.horse.posY--;
+          this.horse.moveUp();
           this.horse.framesIndexY = 16;
           break;
       }

@@ -20,8 +20,9 @@ class Horse {
       this.framesIndexY = 0;     
 
       this.velX = 0.1;
-      this.velY = 0.001;
+      this.velY = 0.1;
       this.accelerationRate = 0.1;
+      this.orientation = "right"
     };
 
     
@@ -44,15 +45,7 @@ class Horse {
 
   }
 
-//   draw() {
-//     this.ctx.drawImage(
-//       this.image,
-//       this.posX,
-//       this.posY,
-//       this.width,
-//       this.height
-//     );
-//   }
+
 
   animate(framesCounter) {
 
@@ -65,8 +58,7 @@ class Horse {
     
   }
 
-  jump() {
-    console.log("SALTANDO desde horse!");
+  jumpRight() {
     let xAdvance = 90
     const elongation = 70
     const yOriginal = this.posY
@@ -87,31 +79,52 @@ class Horse {
 
         
     }, 10)
-    // let gravity = 0.0001;
-
-    // if (this.posY < this.posY0) {
-    // //   this.posY += this.velY;
-    // //   this.posX += this.velX;
-    // //   this.velY += gravity;
-    // } else {
-    //     this.posY = this.posY0;
-    //     this.velY = 1;
-    //     this.velX = 1;
-    // }
-
   }
+
+  jumpLeft() {
+    let xAdvance = 90
+    const elongation = 70
+    const yOriginal = this.posY
+
+    const intervalID = setInterval(() => {
+        // how fast the jump animation takes place xAdvance
+        xAdvance+=5
+
+        if (xAdvance > 270) {
+            clearInterval(intervalID);
+            return;
+        }
+        
+        // how far in the X we advance every jump
+        this.posX-=1
+        // elongation measures how high the jump reaches
+        this.posY = yOriginal + elongation * Math.cos(xAdvance * Math.PI / 180)
+
+        
+    }, 10)
+  }
+
  
-  moveX() {
+  moveRight() {
+      this.orientation = "right"
     this.velX += this.accelerationRate;
     this.posX += this.velX;
   }
 
-  moveY() {
-    this.posY ++;
+  moveLeft() {
+    this.orientation = "left"
+    this.velX += this.accelerationRate;
+    this.posX -= this.velX;
   }
 
+  moveUp() {
+    this.velY += this.accelerationRate;
+    this.posY -= this.velY;
+  }
 
+  moveDown() {
+    this.velY += this.accelerationRate;
+    this.posY += this.velY;
+  }
 
-    
-  
 }
