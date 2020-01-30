@@ -1,5 +1,5 @@
 class Obstacles {
-    constructor(ctx, width, height, posX, posY, type){
+    constructor(ctx, width, height, posX, posY, type, image){
         this.ctx = ctx;
         this.width = width;
         this.height = height;
@@ -8,6 +8,8 @@ class Obstacles {
         this.posX0 = this.posX;
         this.posY = posY;
         this.posY0 = this.posY;
+        this.image = new Image();
+        this.image.src = "";
     }
 
     draw() {

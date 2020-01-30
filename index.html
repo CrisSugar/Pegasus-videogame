@@ -6,12 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pegasus</title>
     <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         html, body {
             overflow: hidden;
         }
     </style>
     <script src="./score.js"></script>
+    <script src="./timer.js"></script>
     <script src="./horse.js"></script>
     <script src="obstacles.js"></script>
     <script src="background.js"></script>
@@ -19,8 +21,18 @@
     <script src="index.js"></script>
 </head>
 <body>
+    <div id=start>
+         <input type="button" id = "start" value = "START">
+    </div>
+    
+    <div>
+       <canvas id="canvas"></canvas>
+    </div>
+    <div id = restart>
 
-    <canvas id="canvas"></canvas>
+        <input type = "button" id = "restart" value = "Restart">
+
+    </div>
  
 </body>
 </html>

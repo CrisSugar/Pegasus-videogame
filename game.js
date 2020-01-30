@@ -7,7 +7,8 @@ let game = {
   framesCounter: 0,
   obstacles: [],
   score: 0,
-  timer: Number,
+  collides: undefined,
+//   timer: Number,
   velX: Number,
   velY: Number,
   keys: {
@@ -22,6 +23,7 @@ let game = {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
+    score.init(this.ctx);
     this.start();
   },
 
@@ -53,8 +55,8 @@ let game = {
     this.background.draw();
     this.horse.draw(this.framesCounter);
     this.obstacles.forEach(obstacles => obstacles.draw());
-    // this.score.draw();
-    // this.timer.draw();
+    this.drawScore();
+    // this.timeboard.draw();
   },
 
   moveAll() {
@@ -79,35 +81,67 @@ let game = {
     this.obstacles = [
       new Obstacles(
         this.ctx,
-        (this.width = 50),
+        (this.width = 65),
         (this.height = 20),
-        (this.posX = 250),
-        (this.posY = 200),
-        "obsWin"
+        (this.posX = 270),
+        (this.posY = 100),
+        "obsWin",
+        ("./imagenes/valla.png")
       ),
       new Obstacles(
         this.ctx,
         (this.width = 50),
         (this.height = 50),
-        (this.posX = 450),
-        (this.posY = 180),
+        (this.posX = 600),
+        (this.posY = 15),
+        "obsGOver"
+      ),
+      new Obstacles(
+        this.ctx,
+        (this.width = 50),
+        (this.height = 50),
+        (this.posX = 950),
+        (this.posY = 17),
+        "obsGOver"
+      ),
+      new Obstacles(
+        this.ctx,
+        (this.width = 50),
+        (this.height = 50),
+        (this.posX = 110),
+        (this.posY = 300),
+        "obsGOver"
+      ),
+      new Obstacles(
+        this.ctx,
+        (this.width = 65),
+        (this.height = 20),
+        (this.posX = 220),
+        (this.posY = 600),
+        "obsWin",
+        ("./imagenes/valla.png")
+      ),
+      new Obstacles(
+        this.ctx,
+        (this.width = 65),
+        (this.height = 20),
+        (this.posX = 500),
+        (this.posY = 600),
+        "obsWin",
+        ("./imagenes/valla.png")
+      ),
+      new Obstacles(
+        this.ctx,
+        (this.width = 50),
+        (this.height = 50),
+        (this.posX = 750),
+        (this.posY = 130),
         "obsGOver"
       )
+
     ];
-    // this.score = new Score (
-    //     this.ctx,
-    //     this.width = 200,
-    //     this.height = 100,
-    //     this.posX = 60,
-    //     this.posY = 40,
-    // )
-    // this.timer = new Timer (
-    //     this.ctx,
-    //     this.width = 200,
-    //     this.height = 100,
-    //     this.posX = 280,
-    //     this.posY = 40,
-    // )
+    // this.scoreboard = new Score(this.ctx, 200, 100, 60, 40,this.score);
+    // this.timeboard = new Timer(this.ctx, 200, 100, 280, 40);
   },
 
   clear() {
@@ -120,6 +154,7 @@ let game = {
       this.horse.posY + this.horse.height >= obstacle.posY &&
       this.horse.posX <= obstacle.posX + obstacle.width &&
       this.horse.posY <= obstacle.posY + obstacle.height
+    
     ) {
       return true;
     }
@@ -127,19 +162,40 @@ let game = {
 
   gameOver() {
     clearInterval(this.interval);
+    this.draw = function(){
+        ctx.font = "60px Arial"
+        ctx.fillStyle = "Black"
+        ctx.fillText("GAMEOVER!!! Press Enter to retry!",20,100)
+        clearInterval(animateInterval);
+    }
+    isGameOver = true;
+
   },
+
+  
+
 
   checkObstacles() {
     this.obstacles.forEach(obstacle => {
-      if (this.isCollision(obstacle)) {
-        if (obstacle.type === "obsWin") {
-          this.score += 5;
-        } else {
-          this.gameOver();
+        if (this.isCollision(obstacle)) {
+            if (obstacle.type === "obsWin") {
+                this.score += 5
+                
+            } else {
+            this.gameOver();
+            }
         }
-      }
     });
   },
+
+
+
+  drawScore(){
+      score.update(this.score);
+  },
+
+
+
 
   setListeners() {
     document.addEventListener("keydown", e => {
@@ -196,5 +252,16 @@ let game = {
           break;
       }
     });
-  }
+
+//     ctx.canvas.addEventListener('mousemove', function(event){
+
+//         if(isGameOver !== true) {
+    
+//             auto.x = event.clientX-(auto.w*0.5)
+//             auto.y = event.clientY-(auto.h*0.5)
+//             Menu.stattX = event.clientX
+//             Menu.stattY = event.clientY
+//         }
+//     }),
+}
 };

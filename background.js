@@ -5,7 +5,7 @@ class Background {
       this._height = h;
   
       this._image = new Image();
-      this._image.src = "./imagenes/background.png"
+      this._image.src = "./pista.png"
 
       this._posX = 0;
       this._posY = 0;

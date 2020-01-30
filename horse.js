@@ -4,20 +4,20 @@ class Horse {
 
     this.image = new Image();
     this.image.src =
-      "./imagenes/Horse_paint_brown_blacksaddled_smallsaddle.png";
+      "./imagenes/horse.png";
     this.image.onload = () => {
       this.width = 60;
       this.height = 40;
 
-      this.posX = 90;
+      this.posX = 920;
       this.posX0 = this.posX;
-      this.posY = 180;
+      this.posY = 470;
       this.posY0 = this.posY;
 
-      this.framesX = 9;
+      this.framesX = 11;
       this.framesY = 18;
       this.framesIndexX = 0;
-      this.framesIndexY = 0;     
+      this.framesIndexY = 14;     
 
       this.velX = 0.1;
       this.velY = 0.1;
@@ -59,7 +59,7 @@ class Horse {
   }
 
   jumpRight() {
-    let xAdvance = 90
+    let xAdvance = 110
     const elongation = 70
     const yOriginal = this.posY
 
@@ -82,7 +82,7 @@ class Horse {
   }
 
   jumpLeft() {
-    let xAdvance = 90
+    let xAdvance = 110
     const elongation = 70
     const yOriginal = this.posY
 
