@@ -1,6 +1,63 @@
-#start {
-    background-color: green;
-    font-weight: bold;
-    
-
+.begin {
+    background-color: rgb(72, 90, 173);
+    background-image: url(./imagenes/portada.png);
+    background-size: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
 }
+
+
+
+#start {
+    font: black;
+    border-radius: 20%;
+    background-color: rgb(187, 26, 26);
+}
+
+
+#restart {
+    border-radius: 20%;
+    background-color: rgb(23, 245, 71);
+    border-color: cornsilk;
+    
+}
+
+.gameOver {
+    background-image: url(./imagenes/pantalla\ gameOver.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-items: flex-end;
+    height: 100vh;
+    justify-content: center;
+}
+
+.youWin {
+    background-image: url(./imagenes/pantalla\ you\ win.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-items: flex-end;
+    height: 100vh;
+    justify-content: center;
+}
+
+#retry {
+    font: white;
+    background-color: red;
+    border-color: cornsilk; 
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: flex;
+    align-items: center;
+    z-index:99999;
+}
+

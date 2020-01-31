@@ -9,7 +9,6 @@ let game = {
   score: 0,
   actualScore: 0,
   collides: undefined,
-  //   timer: Number,
   velX: Number,
   velY: Number,
   keys: {
@@ -19,6 +18,10 @@ let game = {
     BOTTON: 40,
     JUMP: 32
   },
+  meta: {
+    posX: 1100,
+    posY: 370,
+  },
 
   init() {
     this.canvas = document.getElementById("canvas");
@@ -27,6 +30,7 @@ let game = {
     score.init(this.ctx);
     this.setListeners();
     this.start();
+    
   },
 
   start() {
@@ -41,7 +45,6 @@ let game = {
       this.moveAll();
       this.velX++;
       this.velY++;
-      //   this.gameOver();
       this.checkObstacles();
     }, 1000 / this.FPS);
   },
@@ -58,12 +61,11 @@ let game = {
     this.horse.draw(this.framesCounter);
     this.obstacles.forEach(obstacles => obstacles.draw());
     this.drawScore();
-    // this.timeboard.draw();
+    
   },
 
   moveAll() {
-    // this.horse.continueMove();
-    //     this.food.forEach(obs => obs.move());
+  
   },
 
   reset() {
@@ -74,13 +76,13 @@ let game = {
       "./img/bg.png"
     );
 
-    this.horse = new Horse(this.ctx, 650, 130);
+    this.horse = new Horse(this.ctx, 910, 370);
 
     this.obstacles = [
       new Obstacles(
         this.ctx,
+        25,
         50,
-        70,
         270,
         100,
         ObstacleTypes.win,
@@ -115,8 +117,8 @@ let game = {
       ),
       new Obstacles(
         this.ctx,
+        25,
         50,
-        70,
         220,
         550,
         ObstacleTypes.win,
@@ -124,8 +126,8 @@ let game = {
       ),
       new Obstacles(
         this.ctx,
+        25,
         50,
-        70,
         500,
         560,
         ObstacleTypes.win,
@@ -141,8 +143,14 @@ let game = {
         "./imagenes/valla.png"
       )
     ];
-    // this.scoreboard = new Score(this.ctx, 200, 100, 60, 40,this.score);
-    // this.timeboard = new Timer(this.ctx, 200, 100, 280, 40);
+    this.gameOver = new gameOver(
+        this.ctx, 
+        this.width, 
+        this.height,
+        this.posX,
+        this.posY
+        )
+    
   },
 
   clear() {
@@ -162,17 +170,7 @@ let game = {
     }
   },
 
-  gameOver() {
-    clearInterval(this.interval);
-    alert("GAME OVER");
-    // this.draw = function(){
-    //     ctx.font = "60px Arial"
-    //     ctx.fillStyle = "Black"
-    //     ctx.fillText("GAMEOVER!!! Press Enter to retry!",20,100)
-    //     clearInterval(animateInterval);
-    // }
-    // isGameOver = true;
-  },
+  
 
   checkObstacles() {
     this.obstacles.forEach(obstacle => {
@@ -180,7 +178,7 @@ let game = {
         if (obstacle.type === ObstacleTypes.win) {
           this.score += 5;
         } else {
-          this.gameOver();
+          this.gameOver.stopGame(this.interval, this.canvas);
         }
       }
     });
@@ -189,6 +187,17 @@ let game = {
   drawScore() {
     score.update(this.score);
   },
+
+
+
+  youWin() {
+      if(this.horse.position=meta.position){
+    
+    this.youWin.draw();
+      }
+
+    clearInterval(this.interval);
+},
 
   setListeners() {
     document.addEventListener("keydown", e => {
@@ -232,48 +241,19 @@ let game = {
 
       switch (e.keyCode) {
         case this.keys.RIGHT:
-          this.horse.framesIndexY = 0;
+          this.horse.stopRight();
           break;
         case this.keys.LEFT:
           this.horse.stopLeft()
           break;
         case this.keys.TOP:
-          this.horse.framesIndexY = 14;
+          this.horse.stopUp();
           break;
         case this.keys.BOTTON:
-          this.horse.framesIndexY = 10;
+          this.horse.stopDown();
           break;
       }
     });
 
-    // document.addEventListener("keydown", e => {
-    //   let limit = 100;
-
-    //   switch (e.keyCode) {
-    //     case this.keys.TOP:
-    //       this.direction = "up";
-    //       break;
-    //     case this.keys.LEFT:
-    //       this.direction = "left";
-    //       break;
-    //     case this.keys.RIGHT:
-    //       this.direction = "right";
-    //       break;
-    //     case this.keys.DOWN:
-    //       this.direction = "down";
-    //       break;
-    //   }
-    // });
-
-    //     ctx.canvas.addEventListener('mousemove', function(event){
-
-    //         if(isGameOver !== true) {
-
-    //             auto.x = event.clientX-(auto.w*0.5)
-    //             auto.y = event.clientY-(auto.h*0.5)
-    //             Menu.stattX = event.clientX
-    //             Menu.stattY = event.clientY
-    //         }
-    //     }),
   }
 };

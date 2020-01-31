@@ -5,8 +5,8 @@ class Horse {
     this.image = new Image();
     this.image.src = "./imagenes/horse.png";
 
-    this.width = 60;
-    this.height = 40;
+    this.width = 65;
+    this.height = 45;
 
     this.posX = this.posX0 = x;
     this.posY = this.posY0 = y;
@@ -89,6 +89,10 @@ class Horse {
     }, 10);
   }
 
+  stopRight() {
+    this.framesIndexY = 0;
+  }
+
   moveRight() {
     this.orientation = "right";
     this.velX += this.accelerationRate;
@@ -106,9 +110,17 @@ class Horse {
     this.posX -= this.velX;
   }
 
+  stopUp(){
+      this.framesIndexY = 14;
+  }
+
   moveUp() {
     this.velY += this.accelerationRate;
     this.posY -= this.velY;
+  }
+
+  stopDown(){
+    this.framesIndexY = 10;
   }
 
   moveDown() {
@@ -117,36 +129,3 @@ class Horse {
   }
 }
 
-// move() {
-//     switch (this.direction) {
-//       case "up":
-//         if (this.posY <= this.height) {
-//           this.posY === this.posY;
-//         } else {
-//           this.posY -= this.velY;
-//         }
-//         break;
-//       case "down":
-//         if (this.posY + 30 >= this.gameHeight) {
-//           this.posY = this.gameHeight - 30;
-//         } else {
-//           this.posY += this.velY;
-//         }
-//         break;
-//       case "right":
-//         if (this.posX + 30 >= this.gameWidth) {
-//           this.posX = this.gameWidth - 30;
-//         } else {
-//           this.posX += this.velX;
-//         }
-//         break;
-//       case "left":
-//         if (this.posX < this.width) {
-//           this.posX = this.posX;
-//         } else {
-//           this.posX -= this.velX;
-//         }
-//         break;
-//     }
-//   }
-// }
