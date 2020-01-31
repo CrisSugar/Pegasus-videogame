@@ -1,4 +1,1 @@
-window.onload = () => {
-    game.init();
-    game.setListeners();
-  };
+window.onload = () => game.init()

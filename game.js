@@ -9,7 +9,7 @@ let game = {
   score: 0,
   actualScore: 0,
   collides: undefined,
-//   timer: Number,
+  //   timer: Number,
   velX: Number,
   velY: Number,
   keys: {
@@ -25,6 +25,7 @@ let game = {
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
     score.init(this.ctx);
+    this.setListeners();
     this.start();
   },
 
@@ -72,79 +73,73 @@ let game = {
       this.height,
       "./img/bg.png"
     );
-    this.horse = new Horse(
-      this.ctx,
-      900,
-      1200,
-      this.width,
-      this.height,
-      this.framesCounter
-    );
+
+    this.horse = new Horse(this.ctx, 400, 590);
+
     this.obstacles = [
       new Obstacles(
         this.ctx,
-        (50),
-        (70),
-        (270),
-        (100),
-        "obsWin",
+        50,
+        70,
+        270,
+        100,
+        ObstacleTypes.win,
         "./imagenes/banderin2.png"
       ),
       new Obstacles(
         this.ctx,
-        (60),
-        (40),
-        (600),
-        (15),
-        "obsGOver",
+        60,
+        40,
+        600,
+        15,
+        ObstacleTypes.gameover,
         "./imagenes/valla.png"
       ),
       new Obstacles(
         this.ctx,
-        (60),
-        (40),
-        (950),
-        (17),
-        "obsGOver",
+        60,
+        40,
+        950,
+        17,
+        ObstacleTypes.gameover,
         "./imagenes/valla.png"
       ),
       new Obstacles(
         this.ctx,
-        (60),
-        (40),
-        (150),
-        (350),
-        "obsGOver",
+        60,
+        40,
+        150,
+        350,
+        ObstacleTypes.gameover,
         "./imagenes/valla.png"
       ),
       new Obstacles(
         this.ctx,
-        (50),
-        (70),
-        (220),
-        (550),
-        "obsWin",
+        50,
+        70,
+        220,
+        550,
+        ObstacleTypes.win,
         "./imagenes/banderin2.png"
       ),
       new Obstacles(
         this.ctx,
-        (50),
-        (70),
-        (500),
-        (560),
-        "obsWin",
+        50,
+        70,
+        500,
+        560,
+        ObstacleTypes.win,
         "./imagenes/banderin2.png"
       ),
       new Obstacles(
         this.ctx,
-        (60),
-        (40),
-        (750),
-        (130),
-        "obsGOver",
+        60,
+        40,
+        750,
+        130,
+        ObstacleTypes.gameover,
         "./imagenes/valla.png"
       )
-
     ];
     // this.scoreboard = new Score(this.ctx, 200, 100, 60, 40,this.score);
     // this.timeboard = new Timer(this.ctx, 200, 100, 280, 40);
@@ -159,16 +154,17 @@ let game = {
       this.horse.posX + this.horse.width >= obstacle.posX &&
       this.horse.posY + this.horse.height >= obstacle.posY &&
       this.horse.posX <= obstacle.posX + obstacle.width &&
-      this.horse.posY <= obstacle.posY + obstacle.height
-    
+      this.horse.posY <= obstacle.posY + obstacle.height &&
+      !obstacle.touched
     ) {
+      obstacle.setAsTouched();
       return true;
     }
   },
 
   gameOver() {
     clearInterval(this.interval);
-    alert ("GAME OVER")
+    alert("GAME OVER");
     // this.draw = function(){
     //     ctx.font = "60px Arial"
     //     ctx.fillStyle = "Black"
@@ -176,32 +172,23 @@ let game = {
     //     clearInterval(animateInterval);
     // }
     // isGameOver = true;
-
   },
-
-  
-
 
   checkObstacles() {
     this.obstacles.forEach(obstacle => {
-        if (this.isCollision(obstacle)) {
-            if (obstacle.type === "obsWin") {
-                this.score += 5                
-            } else {
-            this.gameOver();
-            }
+      if (this.isCollision(obstacle)) {
+        if (obstacle.type === ObstacleTypes.win) {
+          this.score += 5;
+        } else {
+          this.gameOver();
         }
+      }
     });
   },
 
-
-
-  drawScore(){
-      score.update(this.score);
+  drawScore() {
+    score.update(this.score);
   },
-
-
-
 
   setListeners() {
     document.addEventListener("keydown", e => {
@@ -259,10 +246,9 @@ let game = {
     //   }
     // });
 
-
     // document.addEventListener("keydown", e => {
     //   let limit = 100;
-      
+
     //   switch (e.keyCode) {
     //     case this.keys.TOP:
     //       this.direction = "up";
@@ -279,15 +265,15 @@ let game = {
     //   }
     // });
 
-//     ctx.canvas.addEventListener('mousemove', function(event){
+    //     ctx.canvas.addEventListener('mousemove', function(event){
 
-//         if(isGameOver !== true) {
-    
-//             auto.x = event.clientX-(auto.w*0.5)
-//             auto.y = event.clientY-(auto.h*0.5)
-//             Menu.stattX = event.clientX
-//             Menu.stattY = event.clientY
-//         }
-//     }),
-}
+    //         if(isGameOver !== true) {
+
+    //             auto.x = event.clientX-(auto.w*0.5)
+    //             auto.y = event.clientY-(auto.h*0.5)
+    //             Menu.stattX = event.clientX
+    //             Menu.stattY = event.clientY
+    //         }
+    //     }),
+  }
 };
