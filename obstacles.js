@@ -9,12 +9,12 @@ class Obstacles {
         this.posY = posY;
         this.posY0 = this.posY;
         this.image = new Image();
-        this.image.src = "";
+        this.image.src = image;
     }
 
     draw() {
-        this.ctx.fillStyle = "brown";
-        this.ctx.fillRect(this.posX, this.posY, this.width, this.height, this.type);
+        
+        this.ctx.drawImage(this.image,this.posX, this.posY, this.width, this.height);
       }
 }
 

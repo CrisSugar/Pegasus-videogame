@@ -59,13 +59,13 @@ class Horse {
   }
 
   jumpRight() {
-    let xAdvance = 110
-    const elongation = 70
+    let xAdvance = 90
+    const elongation = 100
     const yOriginal = this.posY
 
     const intervalID = setInterval(() => {
         // how fast the jump animation takes place xAdvance
-        xAdvance+=5
+        xAdvance+=2
 
         if (xAdvance > 270) {
             clearInterval(intervalID);
@@ -82,13 +82,13 @@ class Horse {
   }
 
   jumpLeft() {
-    let xAdvance = 110
-    const elongation = 70
+    let xAdvance = 90
+    const elongation = 100
     const yOriginal = this.posY
 
     const intervalID = setInterval(() => {
         // how fast the jump animation takes place xAdvance
-        xAdvance+=5
+        xAdvance+=2
 
         if (xAdvance > 270) {
             clearInterval(intervalID);
@@ -128,3 +128,37 @@ class Horse {
   }
 
 }
+
+// move() {
+//     switch (this.direction) {
+//       case "up":
+//         if (this.posY <= this.height) {
+//           this.posY === this.posY;
+//         } else {
+//           this.posY -= this.velY;
+//         }
+//         break;
+//       case "down":
+//         if (this.posY + 30 >= this.gameHeight) {
+//           this.posY = this.gameHeight - 30;
+//         } else {
+//           this.posY += this.velY;
+//         }
+//         break;
+//       case "right":
+//         if (this.posX + 30 >= this.gameWidth) {
+//           this.posX = this.gameWidth - 30;
+//         } else {
+//           this.posX += this.velX;
+//         }
+//         break;
+//       case "left":
+//         if (this.posX < this.width) {
+//           this.posX = this.posX;
+//         } else {
+//           this.posX -= this.velX;
+//         }
+//         break;
+//     }
+//   }
+// }

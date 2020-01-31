@@ -7,6 +7,7 @@ let game = {
   framesCounter: 0,
   obstacles: [],
   score: 0,
+  actualScore: 0,
   collides: undefined,
 //   timer: Number,
   velX: Number,
@@ -60,7 +61,8 @@ let game = {
   },
 
   moveAll() {
-    // this.horse.jump(this.framesCounter);
+    // this.horse.continueMove();
+    //     this.food.forEach(obs => obs.move());
   },
 
   reset() {
@@ -81,62 +83,66 @@ let game = {
     this.obstacles = [
       new Obstacles(
         this.ctx,
-        (this.width = 65),
-        (this.height = 20),
-        (this.posX = 270),
-        (this.posY = 100),
+        (50),
+        (70),
+        (270),
+        (100),
         "obsWin",
-        ("./imagenes/valla.png")
+        "./imagenes/banderin2.png"
       ),
       new Obstacles(
         this.ctx,
-        (this.width = 50),
-        (this.height = 50),
-        (this.posX = 600),
-        (this.posY = 15),
-        "obsGOver"
+        (60),
+        (40),
+        (600),
+        (15),
+        "obsGOver",
+        "./imagenes/valla.png"
       ),
       new Obstacles(
         this.ctx,
-        (this.width = 50),
-        (this.height = 50),
-        (this.posX = 950),
-        (this.posY = 17),
-        "obsGOver"
+        (60),
+        (40),
+        (950),
+        (17),
+        "obsGOver",
+        "./imagenes/valla.png"
       ),
       new Obstacles(
         this.ctx,
-        (this.width = 50),
-        (this.height = 50),
-        (this.posX = 110),
-        (this.posY = 300),
-        "obsGOver"
+        (60),
+        (40),
+        (150),
+        (350),
+        "obsGOver",
+        "./imagenes/valla.png"
       ),
       new Obstacles(
         this.ctx,
-        (this.width = 65),
-        (this.height = 20),
-        (this.posX = 220),
-        (this.posY = 600),
+        (50),
+        (70),
+        (220),
+        (550),
         "obsWin",
-        ("./imagenes/valla.png")
+        "./imagenes/banderin2.png"
       ),
       new Obstacles(
         this.ctx,
-        (this.width = 65),
-        (this.height = 20),
-        (this.posX = 500),
-        (this.posY = 600),
+        (50),
+        (70),
+        (500),
+        (560),
         "obsWin",
-        ("./imagenes/valla.png")
+        "./imagenes/banderin2.png"
       ),
       new Obstacles(
         this.ctx,
-        (this.width = 50),
-        (this.height = 50),
-        (this.posX = 750),
-        (this.posY = 130),
-        "obsGOver"
+        (60),
+        (40),
+        (750),
+        (130),
+        "obsGOver",
+        "./imagenes/valla.png"
       )
 
     ];
@@ -162,13 +168,14 @@ let game = {
 
   gameOver() {
     clearInterval(this.interval);
-    this.draw = function(){
-        ctx.font = "60px Arial"
-        ctx.fillStyle = "Black"
-        ctx.fillText("GAMEOVER!!! Press Enter to retry!",20,100)
-        clearInterval(animateInterval);
-    }
-    isGameOver = true;
+    alert ("GAME OVER")
+    // this.draw = function(){
+    //     ctx.font = "60px Arial"
+    //     ctx.fillStyle = "Black"
+    //     ctx.fillText("GAMEOVER!!! Press Enter to retry!",20,100)
+    //     clearInterval(animateInterval);
+    // }
+    // isGameOver = true;
 
   },
 
@@ -179,8 +186,7 @@ let game = {
     this.obstacles.forEach(obstacle => {
         if (this.isCollision(obstacle)) {
             if (obstacle.type === "obsWin") {
-                this.score += 5
-                
+                this.score += 5                
             } else {
             this.gameOver();
             }
@@ -234,24 +240,44 @@ let game = {
       }
     });
 
-    document.addEventListener("keyup", e => {
-      this.horse.framesIndexX = 0;
+    // document.addEventListener("keyup", e => {
+    //   this.horse.framesIndexX = 0;
 
-      switch (e.keyCode) {
-        case this.keys.RIGHT:
-          this.horse.framesIndexY = 0;
-          break;
-        case this.keys.LEFT:
-          this.horse.framesIndexY = 5;
-          break;
-        case this.keys.TOP:
-          this.horse.framesIndexY = 14;
-          break;
-        case this.keys.BOTTON:
-          this.horse.framesIndexY = 10;
-          break;
-      }
-    });
+    //   switch (e.keyCode) {
+    //     case this.keys.RIGHT:
+    //       this.horse.framesIndexY = 0;
+    //       break;
+    //     case this.keys.LEFT:
+    //       this.horse.framesIndexY = 5;
+    //       break;
+    //     case this.keys.TOP:
+    //       this.horse.framesIndexY = 14;
+    //       break;
+    //     case this.keys.BOTTON:
+    //       this.horse.framesIndexY = 10;
+    //       break;
+    //   }
+    // });
+
+
+    // document.addEventListener("keydown", e => {
+    //   let limit = 100;
+      
+    //   switch (e.keyCode) {
+    //     case this.keys.TOP:
+    //       this.direction = "up";
+    //       break;
+    //     case this.keys.LEFT:
+    //       this.direction = "left";
+    //       break;
+    //     case this.keys.RIGHT:
+    //       this.direction = "right";
+    //       break;
+    //     case this.keys.DOWN:
+    //       this.direction = "down";
+    //       break;
+    //   }
+    // });
 
 //     ctx.canvas.addEventListener('mousemove', function(event){
 

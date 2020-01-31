@@ -13,7 +13,7 @@ const score = {
 
         update(score){
             
-            this.ctx.fillText(`Score: ${score} `, 65, 80);
+            this.ctx.fillText(`Score: ${+score} `, 65, 80);
         }
 
     };
