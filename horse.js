@@ -49,7 +49,7 @@ class Horse {
 
   jumpRight() {
     let xAdvance = 90;
-    const elongation = 100;
+    const elongation = 130;
     const yOriginal = this.posY;
 
     const intervalID = setInterval(() => {
@@ -62,7 +62,7 @@ class Horse {
       }
 
       // how far in the X we advance every jump
-      this.posX += 1;
+      this.posX += 2;
       // elongation measures how high the jump reaches
       this.posY = yOriginal + elongation * Math.cos((xAdvance * Math.PI) / 180);
     }, 10);
@@ -70,7 +70,7 @@ class Horse {
 
   jumpLeft() {
     let xAdvance = 90;
-    const elongation = 100;
+    const elongation = 130;
     const yOriginal = this.posY;
 
     const intervalID = setInterval(() => {
@@ -83,7 +83,7 @@ class Horse {
       }
 
       // how far in the X we advance every jump
-      this.posX -= 1;
+      this.posX -= 2;
       // elongation measures how high the jump reaches
       this.posY = yOriginal + elongation * Math.cos((xAdvance * Math.PI) / 180);
     }, 10);
