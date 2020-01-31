@@ -74,7 +74,7 @@ let game = {
       "./img/bg.png"
     );
 
-    this.horse = new Horse(this.ctx, 400, 590);
+    this.horse = new Horse(this.ctx, 650, 130);
 
     this.obstacles = [
       new Obstacles(
@@ -212,7 +212,7 @@ let game = {
 
         case this.keys.LEFT:
           this.horse.moveLeft();
-          this.horse.framesIndexY = 7;
+          
           break;
 
         case this.keys.BOTTON:
@@ -227,24 +227,24 @@ let game = {
       }
     });
 
-    // document.addEventListener("keyup", e => {
-    //   this.horse.framesIndexX = 0;
+    document.addEventListener("keyup", e => {
+      this.horse.framesIndexX = 0;
 
-    //   switch (e.keyCode) {
-    //     case this.keys.RIGHT:
-    //       this.horse.framesIndexY = 0;
-    //       break;
-    //     case this.keys.LEFT:
-    //       this.horse.framesIndexY = 5;
-    //       break;
-    //     case this.keys.TOP:
-    //       this.horse.framesIndexY = 14;
-    //       break;
-    //     case this.keys.BOTTON:
-    //       this.horse.framesIndexY = 10;
-    //       break;
-    //   }
-    // });
+      switch (e.keyCode) {
+        case this.keys.RIGHT:
+          this.horse.framesIndexY = 0;
+          break;
+        case this.keys.LEFT:
+          this.horse.stopLeft()
+          break;
+        case this.keys.TOP:
+          this.horse.framesIndexY = 14;
+          break;
+        case this.keys.BOTTON:
+          this.horse.framesIndexY = 10;
+          break;
+      }
+    });
 
     // document.addEventListener("keydown", e => {
     //   let limit = 100;

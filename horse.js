@@ -95,7 +95,12 @@ class Horse {
     this.posX += this.velX;
   }
 
+  stopLeft() {
+    this.framesIndexY = 5;
+  }
+
   moveLeft() {
+    this.framesIndexY = 7;
     this.orientation = "left";
     this.velX += this.accelerationRate;
     this.posX -= this.velX;
